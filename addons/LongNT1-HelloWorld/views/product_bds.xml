@@ -101,26 +101,32 @@
                                                 options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True, &quot;no_edit&quot;: True}" />
                                             <field name="province_id" class="o_address_zip w-100"
                                                 options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True, &quot;no_edit&quot;: True}" /> -->
-                                            <field name="street" placeholder="Đường" readonly="isReadonly"
+                                            <field name="street" placeholder="Đường"
+                                                readonly="isReadonly"
                                                 class="o_address_street" />
                                             <field name="alley" placeholder="Ngõ, số nhà"
                                                 class="o_address_street_so" />
                                             <!-- <field name="alley" placeholder="Ngõ, số nhà"
                                                 class="o_address_street" /> -->
-                                            <field name="ward_id" placeholder="Phường xã" readonly="isReadonly"/>
-                                            <field name="district_id" placeholder="Quận huyện" readonly="isReadonly"/>
-                                            <field name="state_id" class="o_address_state" readonly="isReadonly"
+                                            <field name="ward_id" placeholder="Phường xã"
+                                                readonly="isReadonly" />
+                                            <field name="district_id" placeholder="Quận huyện"
+                                                readonly="isReadonly" />
+                                            <field name="state_id" class="o_address_state"
+                                                readonly="isReadonly"
                                                 placeholder="City"
                                                 options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
                                                 context="{'country_id': country_id, 'default_country_id': country_id}" />
                                             <div name="partner_address_country"
                                                 class="d-flex justify-content-between">
-                                                <field name="country_id" placeholder="Country" readonly="isReadonly"
+                                                <field name="country_id" placeholder="Country"
+                                                    readonly="isReadonly"
                                                     class="o_address_country"
                                                     options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" />
                                             </div>
                                         </div>
-                                        <field name="supp_ggmap" placeholder="Nhập đường link" readonly="isReadonly" />
+                                        <field name="supp_ggmap" placeholder="Nhập đường link"
+                                            readonly="isReadonly" />
                                     </group>
                                 </group>
                                 <group string="Thông tin chi tiết">
@@ -132,17 +138,26 @@
                                                 <!-- <field name="image" widget="image" /> -->
                                             </tree>
                                         </field>
-                                        <field name="acreage" placeholder="Diện tích" readonly="isReadonly" />
-                                        <field name="real_acreage" placeholder="Diện tích thật" readonly="isReadonly" />
-                                        <field name="way_in" placeholder="Ngõ vào" readonly="isReadonly" />
-                                        <field name="facade" placeholder="Mặt tiền" readonly="isReadonly" />
-                                        <field name="real_length" placeholder="Chiều dài" readonly="isReadonly" />
+                                        <field name="acreage" placeholder="Diện tích"
+                                            readonly="isReadonly" />
+                                        <field name="real_acreage" placeholder="Diện tích thật"
+                                            readonly="isReadonly" />
+                                        <field name="way_in" placeholder="Ngõ vào"
+                                            readonly="isReadonly" />
+                                        <field name="facade" placeholder="Mặt tiền"
+                                            readonly="isReadonly" />
+                                        <field name="real_length" placeholder="Chiều dài"
+                                            readonly="isReadonly" />
                                     </group>
                                     <group>
-                                        <field name="nums_bedrooms" placeholder="Số phòng ngủ" readonly="isReadonly" />
-                                        <field name="nums_bath" placeholder="Số nhà vệ sinh" readonly="isReadonly" />
-                                        <field name="floors" placeholder="Số tầng" readonly="isReadonly"/>
-                                        <field name="interior" placeholder="Nội thất" readonly="isReadonly"/>
+                                        <field name="nums_bedrooms" placeholder="Số phòng ngủ"
+                                            readonly="isReadonly" />
+                                        <field name="nums_bath" placeholder="Số nhà vệ sinh"
+                                            readonly="isReadonly" />
+                                        <field name="floors" placeholder="Số tầng"
+                                            readonly="isReadonly" />
+                                        <field name="interior" placeholder="Nội thất"
+                                            readonly="isReadonly" />
                                         <field name="direction_id"
                                             options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}">
                                             <tree>
@@ -155,11 +170,14 @@
                                 <group string="Thông tin giá">
                                     <group>
                                         <field name="offer_price"
-                                            string="Giá chào hợp đồng (Triệu VND)" readonly="isReadonly"/>
-                                        <field name="close_price" string="Giá chốt (Triệu VND)" readonly="isReadonly"/>
+                                            string="Giá chào hợp đồng (Triệu VND)"
+                                            readonly="isReadonly" />
+                                        <field name="close_price" string="Giá chốt (Triệu VND)"
+                                            readonly="isReadonly" />
                                         <field name="bonus_money_percent"
-                                            string="% Hoa hồng (Triệu VND)" readonly="isReadonly"/>
-                                        <field name="bonus_money" string="Hoa hồng" readonly="isReadonly"/>
+                                            string="% Hoa hồng (Triệu VND)" readonly="isReadonly" />
+                                        <field name="bonus_money" string="Hoa hồng"
+                                            readonly="isReadonly" />
                                     </group>
                                 </group>
                                 <button name="action_follow_product" type="object"
@@ -173,8 +191,10 @@
                                 </group> -->
                                 <group string="Thông tin liên hệ">
                                     <group>
-                                        <field name="sell_name" string="Tên chủ nhà" readonly="isReadonly"/>
-                                        <field name="sell_phone" string="Số điện thoại" readonly="isReadonly"/>
+                                        <field name="sell_name" string="Tên chủ nhà"
+                                            readonly="isReadonly" />
+                                        <field name="sell_phone" string="Số điện thoại"
+                                            readonly="isReadonly" />
                                     </group>
                                 </group>
                                 <!-- <div
@@ -213,7 +233,7 @@
                                 </group>
                             </page>
                             <page string="Người theo dõi"
-                                groups="RealEstateModuleNew.group_people_dauchu">
+                                groups="LongNT1-HelloWorld.group_people_dauchu">
                                 <group>
                                     <field name="name" />
 
@@ -243,7 +263,7 @@
                                 </group>
                             </page>
                             <page string="Người được duyệt"
-                                groups="RealEstateModuleNew.group_people_dauchu">
+                                groups="LongNT1-HelloWorld.group_people_dauchu">
                                 <group>
                                     <!-- <field name="name" /> -->
                                     <!-- Hiển thị danh sách người theo dõi -->

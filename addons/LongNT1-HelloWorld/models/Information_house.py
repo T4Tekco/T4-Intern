@@ -24,7 +24,7 @@ class Product(models.Model):
     real_acreage = fields.Float(string="Diện tích thực tế")
     #is_owner = fields.Boolean(string="Sản phẩm đầu chủ", default=True, readonly=True)
     #juridical = fields.Text(string="Pháp lý")
-    alley = fields.Char(string="Ngõ, số nhà",groups='RealEstateModuleNew.group_people_dauchu')
+    alley = fields.Char(string="Ngõ, số nhà",groups='LongNT1-HelloWorld.group_people_dauchu')
     street = fields.Char(string="Đường phố")
     #street2 = fields.Char(string="Đường phố 2")
     ward = fields.Char(string="Phường xã")
@@ -75,7 +75,7 @@ class Product(models.Model):
     multiple_images = fields.Many2many('ir.attachment', 
         'product_template_ir_attachment_rel_multiple',  # Bảng trung gian tùy chỉnh
         'product_id', 'attachment_id',string="Ảnh sổ đỏ",help="Chọn nhiều hình ảnh cho sản phẩm này",
-        groups='RealEstateModuleNew.group_people_dauchu',domain=[('mimetype', 'ilike', 'image')],)
+        groups='LongNT1-HelloWorld.group_people_dauchu',domain=[('mimetype', 'ilike', 'image')],)
     
     
     additional_images_2 = fields.Many2many(
@@ -84,7 +84,7 @@ class Product(models.Model):
         'product_id', 'attachment_id', 
         string="Hình ảnh chi tiết",
         help="Chọn thêm hình ảnh chi tiết",
-        groups='RealEstateModuleNew.group_people_dauchu',
+        groups='LongNT1-HelloWorld.group_people_dauchu',
         domain=[('mimetype', 'ilike', 'image')],
     )
 
@@ -93,7 +93,7 @@ class Product(models.Model):
     #     'product_id', 'attachment_id', 
     #     string="Ảnh chi tiết nhà",
     #     help="Có thể chọn thêm hình ảnh",
-    #     groups='RealEstateModuleNew.group_people_dauchu',
+    #     groups='LongNT1-HelloWorld.group_people_dauchu',
     #     required=True,
     #     domain=[('mimetype', 'ilike', 'image')],
     # )
@@ -102,7 +102,7 @@ class Product(models.Model):
     #     'product_id', 'attachment_id', 
     #     string="Ảnh hợp đồng",
     #     help="Có thể chọn thêm hình ảnh",
-    #     groups='RealEstateModuleNew.group_people_dauchu',
+    #     groups='LongNT1-HelloWorld.group_people_dauchu',
     #     required=True,
     #     domain=[('mimetype', 'ilike', 'image')],
     # )
@@ -118,7 +118,7 @@ class Product(models.Model):
     # multi_images = fields.Many2many(
     #     'ir.attachment', 
     #     string="Images",
-    #     help="Upload multiple images for the product", groups='RealEstateModuleNew.group_people_dauchu')
+    #     help="Upload multiple images for the product", groups='LongNT1-HelloWorld.group_people_dauchu')
     
 
     #người cho duyet
@@ -133,12 +133,12 @@ class Product(models.Model):
     
     def _compute_is_approve(self):
         for record in self:
-            if record.env.user.has_group('RealEstateModuleNew.group_people_dauchu'):
+            if record.env.user.has_group('LongNT1-HelloWorld.group_people_dauchu'):
                 record.isReadonly = False
             else:
                 record.isReadonly = True
 
-            if record.env.user in record.follower_2_ids.user_id or record.env.user.has_group('RealEstateModuleNew.group_people_dauchu'):
+            if record.env.user in record.follower_2_ids.user_id or record.env.user.has_group('LongNT1-HelloWorld.group_people_dauchu'):
                 record.isApprove = True
             else:
                 record.isApprove = False    

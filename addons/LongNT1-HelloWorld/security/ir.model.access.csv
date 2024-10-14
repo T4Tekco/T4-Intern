@@ -17,9 +17,9 @@ access_pcategory_bds_user,User category.bds,model_category_bds,base.group_user,1
 access_pcategory_bds_manager,Manager category.bds,model_category_bds,base.group_system,1,1,1,1
 
 
-access_people_daukhach,User people.daukhach,model_product_template,RealEstateModuleNew.group_people_daukhach,1,1,0,0
-access_people_dauchu,Manager people.dauchu,model_product_template,RealEstateModuleNew.group_people_dauchu,1,1,1,1
+access_people_daukhach,User people.daukhach,model_product_template,LongNT1-HelloWorld.group_people_daukhach,1,1,0,0
+access_people_dauchu,Manager people.dauchu,model_product_template,LongNT1-HelloWorld.group_people_dauchu,1,1,1,1
 
 
-access_product_follow_user,User product.follow,model_product_follow,RealEstateModuleNew.group_people_daukhach,1,1,1,0
-access_product_follow_manager,Manager product.follow,model_product_follow,RealEstateModuleNew.group_people_dauchu,1,1,1,1
+access_product_follow_user,User product.follow,model_product_follow,LongNT1-HelloWorld.group_people_daukhach,1,1,1,0
+access_product_follow_manager,Manager product.follow,model_product_follow,LongNT1-HelloWorld.group_people_dauchu,1,1,1,1
