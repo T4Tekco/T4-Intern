@@ -1,0 +1,8 @@
+{
+    "python.analysis.extraPaths": [
+        "./addons/odoo-config/models/course_",
+        "./addons/odoo-config/models/course_",
+        "./addons/odoo-config/models/course_",
+        "./addons/odoo-config/models/lesson_"
+    ]
+}
