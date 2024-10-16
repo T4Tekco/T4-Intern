@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <!-- Tạo mới một bản ghi cho model teacher.odoo -->
+        <record id="teacher_1" model="teacher.odoo">
+            <field name="name">Nguyen Van A</field>
+            <field name="email">nguyenvana@example.com</field>
+            <field name="phone">0123456789</field>
+            <field name="subject">Mathematics</field>
+            <field name="is_active">True</field>
+        </record>
+
+        <record id="teacher_2" model="teacher.odoo">
+            <field name="name">Tran Thi B</field>
+            <field name="email">tranthib@example.com</field>
+            <field name="phone">0987654321</field>
+            <field name="subject">Physics</field>
+            <field name="is_active">True</field>
+        </record>
+         <record id="teacher_2" model="teacher.odoo">
+            <field name="name">Vo Phi Hung</field>
+            <field name="email">vophihung@example.com</field>
+            <field name="phone">0987654321</field>
+            <field name="subject">Math</field>
+            <field name="is_active">True</field>
+        </record>
+         <record id="teacher_2" model="teacher.odoo">
+            <field name="name">Tran Thi My</field>
+            <field name="email">tranthimy@example.com</field>
+            <field name="phone">0987654321</field>
+            <field name="subject">English</field>
+            <field name="is_active">True</field>
+        </record>
+    </data>
+</odoo>
