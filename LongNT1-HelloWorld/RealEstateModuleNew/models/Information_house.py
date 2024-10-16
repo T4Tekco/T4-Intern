@@ -1,6 +1,7 @@
 from odoo import models, fields, api
 import logging
 _logger = logging.getLogger(__name__)
+import json
 class Product(models.Model):
     
     _inherit = 'product.template'
@@ -9,8 +10,6 @@ class Product(models.Model):
     # product_type_id = fields.Many2one("product.type.new", string="Loại bất động sản")
 
     product_type_id = fields.Many2one("category.bds", string="Loại bất động sản")
-
-    # product_type_id = fields.Char( string="Loại bất động sản")
     nums_bedrooms = fields.Integer(string="Số phòng ngủ")
     nums_bath = fields.Integer(string="Số nhà vệ sinh")
     facade = fields.Float(string="Mặt tiền (m)")
@@ -22,11 +21,8 @@ class Product(models.Model):
 
     acreage = fields.Float(string="Diện tích")
     real_acreage = fields.Float(string="Diện tích thực tế")
-    #is_owner = fields.Boolean(string="Sản phẩm đầu chủ", default=True, readonly=True)
-    #juridical = fields.Text(string="Pháp lý")
-    alley = fields.Char(string="Ngõ, số nhà",groups='LongNT1-HelloWorld.group_people_dauchu')
+    alley = fields.Char(string="Ngõ, số nhà")
     street = fields.Char(string="Đường phố")
-    #street2 = fields.Char(string="Đường phố 2")
     ward = fields.Char(string="Phường xã")
     district = fields.Char(string="Quận huyện")
     city = fields.Char(string="Thành phố")
@@ -61,21 +57,12 @@ class Product(models.Model):
         self.ward_id = False
 
     # Tài khoản liên kết
-    # supp_fb = fields.Char(string="Facebook")
-    # supp_zl = fields.Char(string="Zalo")
-    # supp_wa = fields.Char(string="WhatApp")
-    # supp_vb = fields.Char(string="Viber")
-    # supp_ms = fields.Char(string="Messenger")
     supp_ggmap = fields.Char(string="Google Map")
-
     
-    
-    
-
     multiple_images = fields.Many2many('ir.attachment', 
         'product_template_ir_attachment_rel_multiple',  # Bảng trung gian tùy chỉnh
         'product_id', 'attachment_id',string="Ảnh sổ đỏ",help="Chọn nhiều hình ảnh cho sản phẩm này",
-        groups='LongNT1-HelloWorld.group_people_dauchu',domain=[('mimetype', 'ilike', 'image')],)
+        groups='RealEstateModuleNew.group_people_dauchu',domain=[('mimetype', 'ilike', 'image')],)
     
     
     additional_images_2 = fields.Many2many(
@@ -84,7 +71,7 @@ class Product(models.Model):
         'product_id', 'attachment_id', 
         string="Hình ảnh chi tiết",
         help="Chọn thêm hình ảnh chi tiết",
-        groups='LongNT1-HelloWorld.group_people_dauchu',
+        groups='RealEstateModuleNew.group_people_dauchu',
         domain=[('mimetype', 'ilike', 'image')],
     )
 
@@ -93,7 +80,7 @@ class Product(models.Model):
     #     'product_id', 'attachment_id', 
     #     string="Ảnh chi tiết nhà",
     #     help="Có thể chọn thêm hình ảnh",
-    #     groups='LongNT1-HelloWorld.group_people_dauchu',
+    #     groups='RealEstateModuleNew.group_people_dauchu',
     #     required=True,
     #     domain=[('mimetype', 'ilike', 'image')],
     # )
@@ -102,7 +89,7 @@ class Product(models.Model):
     #     'product_id', 'attachment_id', 
     #     string="Ảnh hợp đồng",
     #     help="Có thể chọn thêm hình ảnh",
-    #     groups='LongNT1-HelloWorld.group_people_dauchu',
+    #     groups='RealEstateModuleNew.group_people_dauchu',
     #     required=True,
     #     domain=[('mimetype', 'ilike', 'image')],
     # )
@@ -118,27 +105,30 @@ class Product(models.Model):
     # multi_images = fields.Many2many(
     #     'ir.attachment', 
     #     string="Images",
-    #     help="Upload multiple images for the product", groups='LongNT1-HelloWorld.group_people_dauchu')
+    #     help="Upload multiple images for the product", groups='RealEstateModuleNew.group_people_dauchu')
     
 
-    #người cho duyet
+    #người chờ duyệt
     follower_ids = fields.Many2many('product.follow', 'product_id', string="Followers")
     isFollow = fields.Boolean(compute='_compute_is_follow', string="Is Follow")
     isApprove = fields.Boolean(compute='_compute_is_approve', string="Is Follow")
     isReadonly = fields.Boolean(string="Is Readonly")
 
-    #Nguoi duoc duyet
+    #Nguoi duoc duyệt
     follower_2_ids = fields.Many2many('product.follow', 'product_id_2', string="Followers")
     #follower_2_ids = fields.Many2many('product.follow', 'product_id', string="Followers")
+
+   
+
     
     def _compute_is_approve(self):
         for record in self:
-            if record.env.user.has_group('LongNT1-HelloWorld.group_people_dauchu'):
+            if record.env.user.has_group('RealEstateModuleNew.group_people_dauchu'):
                 record.isReadonly = False
             else:
                 record.isReadonly = True
 
-            if record.env.user in record.follower_2_ids.user_id or record.env.user.has_group('LongNT1-HelloWorld.group_people_dauchu'):
+            if record.env.user in record.follower_2_ids.user_id or record.env.user.has_group('RealEstateModuleNew.group_people_dauchu') or record.env.user.has_group('RealEstateModuleNew.group_people_chunha'):
                 record.isApprove = True
             else:
                 record.isApprove = False    
@@ -154,14 +144,18 @@ class Product(models.Model):
             ('user_id', '=', self.env.user.id),
             ('product_id', '=', self.id)
         ], limit=1)
+        _logger.info(existing_follow)
+
 
         if not existing_follow:
-            product_follow = self.env['product.follow'].create({
+            existing_follow = self.env['product.follow'].create({
                 'user_id': self.env.user.id,
                 'product_id': self.id,
                 'product_id_2': self.id
             })
-            self.follower_ids = [(4, product_follow.id)]    
+            _logger.info("fff")
+        
+        self.follower_ids = [(4, existing_follow.id)]    
 
 
         
@@ -183,3 +177,79 @@ class Product(models.Model):
         new_record = super(Product, self).write(vals)
         return new_record
     
+
+
+    def domain(self):
+            # Tạo mảng để lưu trữ các ID của các đối tác liên quan (partner_ids).
+        _logger.info([self.env.user.id])
+        if self.env.user.has_group('RealEstateModuleNew.group_people_dauchu'):
+            return []
+        return [('user_id_ban', '=', self.env.user.id)]
+    #tạo sản phẩm bán
+    sale_product_ids = fields.One2many('sale.product', 'product_template_id', string="Sản phẩm bán",domain=domain)
+
+    
+    def action_create_sale_product(self):
+        self.ensure_one()
+        sale_product = self.env['sale.product'].create({
+            'product_template_id': self.id,
+            'product_type_id': self.product_type_id.id,
+            'nums_bedrooms': self.nums_bedrooms,
+            'nums_bath': self.nums_bath,
+            'facade': self.facade,
+            'real_length': self.real_length,
+            'way_in': self.way_in,
+            'floors': self.floors,
+            'interior': self.interior,
+            'direction_id': self.direction_id.id,
+            'acreage': self.acreage,
+            'real_acreage': self.real_acreage,
+            'alley': self.alley,
+            'street': self.street,
+            'ward': self.ward,
+            'district': self.district,
+            'city': self.city,
+            'state_id': self.state_id.id,
+            'country_id': self.country_id.id,
+            'sell_name': self.sell_name,
+            'sell_phone': self.sell_phone,
+            'offer_price': self.offer_price,
+            'close_price': self.close_price,
+            'bonus_money_percent': self.bonus_money_percent,
+            'bonus_money': self.bonus_money,
+            'district_id': self.district_id.id,
+            'ward_id': self.ward_id.id,
+            'supp_ggmap': self.supp_ggmap,
+            # Có thể thêm các trường khác nếu cần
+        })
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Thông tin bán',
+            'res_model': 'sale.product',
+            'res_id': sale_product.id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'target': 'current',
+        }
+    
+    # sale_product_ids = fields.One2many('sale.product', 'product_template_id', string="Sản phẩm bán")
+
+    # def action_create_sale_product(self):
+        
+    #     self.ensure_one()
+    #     sale_product = self.env['sale.product'].create({
+    #         'product_template_id': self.id,
+            
+    #         # Có thể thêm các trường khác nếu cần
+    #     })
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'name': 'Thông tin bán',
+    #         'res_model': 'sale.product',
+    #         'res_id': sale_product.id,
+    #         'view_type': 'form',
+    #         'view_mode': 'form',
+    #         'target': 'current',
+    #     }
+    
+        

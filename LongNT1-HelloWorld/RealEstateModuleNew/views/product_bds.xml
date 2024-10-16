@@ -82,6 +82,11 @@
                                         placeholder="Tên dự án" on_change="1"
                                         field_id="name_0" />
                                 </div>
+                                <div>
+                                    <button name="action_create_sale_product" type="object"
+                                        string="Tạo sản phẩm bán" class="btn btn-primary"
+                                        invisible="not isApprove" />
+                                </div>
                             </h1>
                         </div>
                         <notebook>
@@ -105,9 +110,8 @@
                                                 readonly="isReadonly"
                                                 class="o_address_street" />
                                             <field name="alley" placeholder="Ngõ, số nhà"
+                                                invisible="not isApprove" readonly="isReadonly"
                                                 class="o_address_street_so" />
-                                            <!-- <field name="alley" placeholder="Ngõ, số nhà"
-                                                class="o_address_street" /> -->
                                             <field name="ward_id" placeholder="Phường xã"
                                                 readonly="isReadonly" />
                                             <field name="district_id" placeholder="Quận huyện"
@@ -158,7 +162,7 @@
                                             readonly="isReadonly" />
                                         <field name="interior" placeholder="Nội thất"
                                             readonly="isReadonly" />
-                                        <field name="direction_id"
+                                        <field name="direction_id" readonly="isReadonly"
                                             options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}">
                                             <tree>
                                                 <field name="name" />
@@ -233,7 +237,7 @@
                                 </group>
                             </page>
                             <page string="Người theo dõi"
-                                groups="LongNT1-HelloWorld.group_people_dauchu">
+                                groups="RealEstateModuleNew.group_people_dauchu">
                                 <group>
                                     <field name="name" />
 
@@ -263,7 +267,7 @@
                                 </group>
                             </page>
                             <page string="Người được duyệt"
-                                groups="LongNT1-HelloWorld.group_people_dauchu">
+                                groups="RealEstateModuleNew.group_people_dauchu">
                                 <group>
                                     <!-- <field name="name" /> -->
                                     <!-- Hiển thị danh sách người theo dõi -->
@@ -280,6 +284,23 @@
                                         </tree>
                                     </field>
                                 </group>
+                            </page>
+                            <page string="Thông tin bán" invisible="not isApprove">
+
+                                <field name="sale_product_ids"
+                                    widget="one2many_list"
+                                >
+                                    <tree create="true">
+                                        <field name="product_template_id" />
+                                        <field name="offer_price" />
+                                        <field name="close_price" />
+                                        <!-- <button name="action_reject" type="object"
+                                        string="Xóa"
+                                        class="btn-danger"
+                                        attrs="{'invisible': [('can_view_details', '=', False)]}"
+                                        confirm="Bạn có chắc chắn muốn hủy yêu cầu này?" /> -->
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>

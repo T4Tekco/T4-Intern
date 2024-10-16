@@ -2,9 +2,9 @@
 # from odoo import models, fields, api
 
 
-# class LongNT1-HelloWorld(models.Model):
-#     _name = 'LongNT1-HelloWorld.LongNT1-HelloWorld'
-#     _description = 'LongNT1-HelloWorld.LongNT1-HelloWorld'
+# class RealEstateModuleNew(models.Model):
+#     _name = 'RealEstateModuleNew.RealEstateModuleNew'
+#     _description = 'RealEstateModuleNew.RealEstateModuleNew'
 #     _inherit = 'mail.thread'
 
 #     name = fields.Char()

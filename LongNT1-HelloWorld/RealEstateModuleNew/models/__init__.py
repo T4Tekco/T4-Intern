@@ -9,3 +9,4 @@ from . import product_type_new
 #from . import images1
 from . import category
 from . import product_follow
+from . import product_sale
