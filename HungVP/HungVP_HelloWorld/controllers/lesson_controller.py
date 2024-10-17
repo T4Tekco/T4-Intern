@@ -12,10 +12,8 @@ class LessonController(http.Controller):
     @http.route('/api/lessons', type='http', auth='public', methods=['GET'], csrf=False)
     def get_all_lessons(self, **kwargs):
         try:
-            # Lấy tất cả các bài học từ model lesson.odoo
             lessons = request.env['lesson.odoo'].sudo().search([])
 
-            # Log số lượng bài học tìm thấy
             _logger.info(f"Number of lessons found: {len(lessons)}")
 
             # Tạo danh sách để lưu kết quả
@@ -28,6 +26,29 @@ class LessonController(http.Controller):
                 })
 
             return FormatResponse(200, "Lessons retrieved successfully", lesson_data).to_response()
+
+        except Exception as e:
+            _logger.error(f"Error in API GET: {str(e)}")
+            return FormatResponse(400, str(e)).to_response()
+        
+    
+    @http.route('/api/lessons/<int:lesson_id>', type='http', auth='public', methods=['GET'], csrf=False)
+    def get_lesson_byId(self, lesson_id, **kwargs):
+        try:
+            # Tìm bài học theo ID
+            existed_lesson = request.env['lesson.odoo'].sudo().search([('id', '=', lesson_id)], limit=1)
+
+            if not existed_lesson:
+                return FormatResponse(404, 'Lesson not found').to_response()
+
+            # Chuyển dữ liệu bài học thành dictionary
+            lesson_data = {
+                'id': existed_lesson.id,
+                'name': existed_lesson.name,
+                'is_active': existed_lesson.is_active
+            }
+
+            return FormatResponse(200, 'Lesson retrieved successfully', lesson_data).to_response()
 
         except Exception as e:
             _logger.error(f"Error in API GET: {str(e)}")
