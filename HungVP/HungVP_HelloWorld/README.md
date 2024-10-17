@@ -1,4 +1,4 @@
-## API Endpoints Documentation  for tesing 
+## API Endpoints Documentation  for testing 
 
 ### LESSON MODEL
 * `GET: /api/lessons` : Get all lessons
