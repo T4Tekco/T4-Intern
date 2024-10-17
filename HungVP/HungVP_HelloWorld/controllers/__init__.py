@@ -2,3 +2,4 @@
 
 from . import main
 from . import lesson_controller
+from . import course_controller
