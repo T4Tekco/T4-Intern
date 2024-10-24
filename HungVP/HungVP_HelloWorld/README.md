@@ -144,7 +144,7 @@
       }
   }
   ```
-* `POST: /api/lesson` : Create new a course
+* `POST: /api/courses` : Create new a course
   
   Request data: 
 ```
