@@ -60,11 +60,9 @@ class LessonController(http.Controller):
         try:
             data = json.loads(request.httprequest.data)
             
-            # Kiểm tra xem bài học đã tồn tại hay chưa
             existing_lesson = request.env['lesson.odoo'].sudo().search([('name', '=', data.get('name'))], limit=1)
             
             if existing_lesson:
-                # Nếu bài học đã tồn tại, trả về thông tin của bài học đó
                 lesson_data = {
                     'id': existing_lesson.id,
                     'name': existing_lesson.name,
@@ -72,13 +70,18 @@ class LessonController(http.Controller):
                 }
                 return FormatResponse(200, 'Lesson already exists', lesson_data).to_response()
             
-            # Tạo bài học mới
             new_lesson = request.env['lesson.odoo'].sudo().create({
                 'name': data.get('name'),
-                'is_active': data.get('is_active', True),  # Mặc định là True
+                'is_active': data.get('is_active', True),
             })
             
-            return FormatResponse(201, 'Lesson created successfully', new_lesson).to_response()
+            new_lesson_data = {
+                'id': new_lesson.id,
+                'name': new_lesson.name,
+                'is_active': new_lesson.is_active,
+            }
+            
+            return FormatResponse(201, 'Lesson created successfully', new_lesson_data).to_response()
         
         except Exception as e:
             _logger.error(f"Error in API POST: {str(e)}")
