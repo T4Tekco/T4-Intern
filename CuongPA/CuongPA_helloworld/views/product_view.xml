@@ -1,0 +1,35 @@
+<odoo>
+    <!-- Form view for Product -->
+    <record id="view_product_form" model="ir.ui.view">
+        <field name="name">product.odoo.form</field>
+        <field name="model">product.odoo</field>
+        <field name="arch" type="xml">
+            <form string="Sản phẩm">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="description"/>
+                        <field name="category"/>
+                        <field name="stock"/>
+                        <field name="image" widget="image" options="{'size': [120, 120]}"/> 
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree view for Product -->
+    <record id="view_product_tree" model="ir.ui.view">
+        <field name="name">product.odoo.tree</field>
+        <field name="model">product.odoo</field>
+        <field name="arch" type="xml">
+            <tree string="Danh sách Sản phẩm">
+                <field name="name"/>
+                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="category"/>
+                <field name="stock"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

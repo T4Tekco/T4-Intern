@@ -1,0 +1,50 @@
+<odoo>
+    <!-- Form view for PaymentOdoo -->
+    <record id="view_payment_form" model="ir.ui.view">
+        <field name="name">payment.odoo.form</field>
+        <field name="model">payment.odoo</field>
+        <field name="arch" type="xml">
+            <form string="Thanh toán">
+                <sheet>
+                    <group>
+                        <field name="name" string="Mã thanh toán"/>
+                        <field name="order_id"/>
+                        <field name="payment_date"/>
+                        <field name="amount"/>
+                        <field name="payment_method"/>
+                        <field name="status"/>
+                    </group>
+                    <notebook>
+                        <page string="Vận chuyển">
+                            <field name="shipping_id">
+                                <tree>
+                                    <field name="shipping_date"/>
+                                    <field name="shipping_address"/>
+                                    <field name="carrier"/>
+                                    <field name="tracking_number"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree view for PaymentOdoo -->
+    <record id="view_payment_tree" model="ir.ui.view">
+        <field name="name">payment.odoo.tree</field>
+        <field name="model">payment.odoo</field>
+        <field name="arch" type="xml">
+            <tree string="Danh sách Thanh toán">
+                <field name="name" string="Mã thanh toán"/>
+                <field name="order_id"/>
+                <field name="payment_date"/>
+                <field name="amount"/>
+                <field name="payment_method"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

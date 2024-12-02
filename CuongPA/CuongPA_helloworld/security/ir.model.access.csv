@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+customer_odoo_user,Customer User,model_customer_odoo,group_customer_user,0,0,0,0
+customer_odoo_manager,Customer Manager,model_customer_odoo,group_customer_manager,1,1,1,1
+order_odoo_user,Order User,model_order_odoo,group_order_user,1,0,0,0
+order_odoo_manager,Order Manager,model_order_odoo,group_order_manager,1,1,1,1
+product_odoo_user,Product User,model_product_odoo,group_product_user,1,0,0,0
+product_odoo_manager,Product Manager,model_product_odoo,group_product_manager,1,1,1,1
+payment_odoo_user,Payment User,model_payment_odoo,group_payment_user,1,0,0,0
+payment_odoo_manager,Payment Manager,model_payment_odoo,group_payment_manager,1,1,1,1
+shipping_odoo_user,Shipping User,model_shipping_odoo,group_shipping_user,1,0,0,0
+shipping_odoo_manager,Shipping Manager,model_shipping_odoo,group_shipping_manager,1,1,1,1
