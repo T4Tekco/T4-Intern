@@ -1,68 +1,46 @@
-from utils import shared_function
-
-def identify_elememts_commas(special_elements_list):
-
-    address = None
-    area = None
-    num_floors = None
-    num_rooms = None
-    price = None
-    unit = None
-    position = None
-    name_hd = None
-    nphn = None
-
-    ty_index = special_elements_list.index('tỷ') if 'tỷ' in special_elements_list else None
-    hd_index = special_elements_list.index('HĐ') if 'HĐ' in special_elements_list else None
-    nphn_index = next((i for i, element in enumerate(special_elements_list) if element.startswith('NPHN')), None)
+from utils import second_parts
 
 
-     # Get NPHN index
-    if nphn_index is not None:
-        nphn = special_elements_list[nphn_index].replace(',', '')
+def identify_source(final_elements):
+    source = None
+    for idx, value in enumerate(final_elements):
+        value = value.replace(',', '')  # Loại bỏ dấu phẩy nếu có
+        if value == "nguồn":  # Tìm vị trí 'nguồn'
+            # Duyệt từ vị trí ngay sau 'nguồn' để tìm số
+            for po, element in enumerate(final_elements[idx+1:], start=idx+1):
+                if element.isdigit():  # Nếu phần tử tiếp theo là số
+                    source = ' '.join(final_elements[idx:po])  # Lấy phần tử từ 'nguồn' tới số
+                    break 
+            break  
 
-    if ty_index is not None:
+    return source
 
-        # address, price, unit, num_floor, nums_rooms
-        area, num_floors, num_rooms, price, unit = shared_function.identify_elements_after_ty(special_elements_list, ty_index)
+# Get Dc
+def identify_dc(final_elements):
+    return final_elements[-1]
 
-        area_index = len(special_elements_list) - 1 - special_elements_list[::-1].index(special_elements_list[ty_index - 4])
+# Final list
+def identify_final_elements_list_2(final_elements):
 
-        # Xử lý trường hợp area_index trùng với ty_index
-        if area_index == ty_index:
-            area_index = len(special_elements_list) - 1 - special_elements_list[::-1].index(special_elements_list[ty_index - 4])
-   
-        address = ' '.join(special_elements_list[:area_index])
+    negotiable_range = None
+    # Components
+    phone_number = second_parts.identify_phone_number(final_elements)
+    commission = second_parts.identify_commission(final_elements)
+    source = identify_source(final_elements)
+    dc = identify_dc(final_elements)
 
-        if hd_index is not None:
-            position = special_elements_list[hd_index + 1]
-            position_index = special_elements_list.index(position)
+    keyword_range = ['nhỏ','đến','trên']
+    for word in final_elements:
+        word_split = word.strip().split(' ')
 
-            # If there's not elements in front of "HĐ" element, the elements assign is None
-            if hd_index == 0:
-                address = None
-                area = None
-                num_floors = None
-                num_rooms = None
-                price = None
-                unit = None
+        for keyword in keyword_range:
+            if keyword in word_split:
+                if keyword == 'nhỏ' or keyword =='trên':
+                    negotiable_range = keyword + " " + word_split[word_split.index(keyword) + 1]
+                else:
+                    pass
+                    # negotiable_range = word_split[word_split.index(keyword) - 1] + " " + keyword + " " + word_split[word_split.index(keyword) + 1]
 
-            if nphn_index is not None:
-                name_hd = ' '.join(special_elements_list[position_index+1:nphn_index])
-            else:
-                name_hd = ' '.join(special_elements_list[position_index+1:])
-        else:
-            pass
-
-    return [address, str(area), num_floors, num_rooms, price, unit, position, name_hd, nphn]
-
-
-
-
-
-
-
-
-
-
-    
+    if source is not None:
+        source = source.replace('nguồn', '')
+    return [phone_number, commission, source, negotiable_range, dc]

@@ -4,7 +4,7 @@ if __name__ == "__main__":
     raw_path = "./data/raw_data/raw_real.xlsx"
     district_city_path = "./data/dictrict_city.xlsx"
 
-    df = handle_string.parse_text(raw_path,district_city_path )
+    df = handle_string.parse_text(raw_path)
     df.to_excel('output.xlsx')
 
 

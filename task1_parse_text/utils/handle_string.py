@@ -1,19 +1,19 @@
-from utils import second_parts, shared_function, first_part, special_elements, special_elements_2
-
+from utils import second_parts, shared_function, first_part, special_elements
 import pandas as pd
 
-def parse_text(raw_path, district_city_path):
+
+def parse_text(raw_path):
     # Import data.
     real_estate_data, real_estate_information, real_estate_description = shared_function.split_raw_data(raw_path)
-    district_city_df = shared_function.import_district_city_data(district_city_path)
+    district_city_df = pd.read_excel("./data/dictrict_city.xlsx")
     
     id_series = real_estate_data.iloc[:, 0]
     per_square_meter = real_estate_data.iloc[:, 2]
     array_2d = []
     for idx, row in real_estate_information.items():
 
-        district = shared_function.split_district_city(row, district_city_df)[0]
-        city = shared_function.split_district_city(row, district_city_df)[1]
+        district = shared_function.process_district_city(row, district_city_df)[0]
+        city = shared_function.process_district_city(row, district_city_df)[1]
         real_estate_id = [id_series[idx]]
         price_per_square_meter = [per_square_meter[idx]]
 
@@ -35,8 +35,8 @@ def parse_text(raw_path, district_city_path):
         else:
 
             components_list = row.split(' ')
-            first_p = special_elements.identify_elememts_commas(components_list)
-            second_p = special_elements_2.identify_final_elements_list_2(components_list)
+            first_p = first_part.identify_elements_of_first_part(components_list)
+            second_p = special_elements.identify_final_elements_list_2(components_list)
 
             real_estate_data = real_estate_id  + first_p + second_p + [district] + [city] + price_per_square_meter
             array_2d.append(real_estate_data)

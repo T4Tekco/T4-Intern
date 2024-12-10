@@ -1,4 +1,4 @@
-from utils import shared_function
+import re
 
 def identify_elements_of_first_part(first_elements_list):
     address = None
@@ -20,7 +20,9 @@ def identify_elements_of_first_part(first_elements_list):
     if nphn_index is not None:
         nphn = first_elements_list[nphn_index]
 
-            # If there's not elements in front of "HĐ" element, the elements assign is None
+
+
+    # If there's not elements in front of "HĐ" element, the elements assign is None
     if hd_index == 0:
         address = None
         area = None
@@ -36,7 +38,24 @@ def identify_elements_of_first_part(first_elements_list):
     if ty_index is not None:
 
         # address, price, unit, num_floor, nums_rooms
-        area, num_floors, num_rooms, price, unit = shared_function.identify_elements_after_ty(first_elements_list, ty_index)
+        unit = first_elements_list[ty_index]
+        price = first_elements_list[ty_index-1]
+        num_rooms = first_elements_list[ty_index-2]
+        area = first_elements_list[ty_index-4]
+        if area.isalpha() or re.findall(r"[^\w\s/]", area):
+            area = first_elements_list[ty_index-3]
+
+        # Find number of floors
+        nums_floor_with_t = None
+        for element in first_elements_list:
+            if element.startswith('T') and element[0:].isdigit():
+                nums_floor_with_t = element
+                break
+
+        if nums_floor_with_t is None:
+            num_floors = first_elements_list[ty_index-3]
+        else:
+            num_floors = nums_floor_with_t
 
         # area_index = first_elements_list.index(first_elements_list[ty_index-4])
         area_index = len(first_elements_list) - 1 - first_elements_list[::-1].index(first_elements_list[ty_index - 4])
