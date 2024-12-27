@@ -1,0 +1,64 @@
+<odoo>
+    <data noupdate="0">
+        <!-- Access control for res.city for Real Estate Manager -->
+        <record id="access_res_city_manager" model="ir.model.access">
+            <field name="name">access_res_city_manager</field>
+            <field name="model_id" ref="model_res_city"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Access control for res.city for Real Estate User -->
+        <record id="access_res_city_user" model="ir.model.access">
+            <field name="name">access_res_city_user</field>
+            <field name="model_id" ref="model_res_city"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access control for res.district for Real Estate Manager -->
+        <record id="access_res_district_manager" model="ir.model.access">
+            <field name="name">access_res_district_manager</field>
+            <field name="model_id" ref="model_res_district"/>
+            <!-- Removed reference to group_real_estate_manager -->
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Access control for res.district for Real Estate User -->
+        <record id="access_res_district_user" model="ir.model.access">
+            <field name="name">access_res_district_user</field>
+            <field name="model_id" ref="model_res_district"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Access control for res.ward for Real Estate Manager -->
+        <record id="access_res_ward_manager" model="ir.model.access">
+            <field name="name">access_res_ward_manager</field>
+            <field name="model_id" ref="model_res_ward"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Access control for res.ward for Real Estate User -->
+        <record id="access_res_ward_user" model="ir.model.access">
+            <field name="name">access_res_ward_user</field>
+            <field name="model_id" ref="model_res_ward"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+    </data>
+</odoo>

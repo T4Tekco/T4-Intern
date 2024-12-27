@@ -1,0 +1,42 @@
+services:
+  web:
+    image: odoo:17.0
+    depends_on:
+      - db
+    ports:
+      - 8069:8069
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons # Nối folder addons local -> folder /mnt/extra-addons trong container Docker
+    env_file:
+      - env/odoo.env
+    command: --
+  db:
+    image: postgres:16
+    ports:
+      - 5432:5432
+    env_file:
+      - env/postgresql.env
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    restart: on-failure
+
+  pgadmin:
+    image: dpage/pgadmin4:7.3    # Jun 24, 2023
+    #container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin@example.com
+      - PGADMIN_LISTEN_PORT=80
+    ports:
+      - 15432:80
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    restart: unless-stopped
+    depends_on:
+      - db
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:

@@ -1,0 +1,136 @@
+<odoo>
+
+    <!-- Root Menu -->
+    <menuitem id="menu_vn_urban_admin_root" name="VN Urban Admin" sequence="10"/>
+
+    <!-- City Views -->
+    <record id="view_city_tree" model="ir.ui.view">
+        <field name="name">city.tree</field>
+        <field name="model">res.city</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_city_form" model="ir.ui.view">
+        <field name="name">city.form</field>
+        <field name="model">res.city</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                    <notebook>
+                        <page string="Districts">
+                            <field name="district_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- District Views -->
+    <record id="view_district_tree" model="ir.ui.view">
+        <field name="name">district.tree</field>
+        <field name="model">res.district</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="city_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_district_form" model="ir.ui.view">
+        <field name="name">district.form</field>
+        <field name="model">res.district</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="city_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Wards">
+                            <field name="ward_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Ward Views -->
+    <record id="view_ward_tree" model="ir.ui.view">
+        <field name="name">ward.tree</field>
+        <field name="model">res.ward</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="district_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ward_form" model="ir.ui.view">
+        <field name="name">ward.form</field>
+        <field name="model">res.ward</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="district_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_city" model="ir.actions.act_window">
+        <field name="name">Cities</field>
+        <field name="res_model">res.city</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_district" model="ir.actions.act_window">
+        <field name="name">Districts</field>
+        <field name="res_model">res.district</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_ward" model="ir.actions.act_window">
+        <field name="name">Wards</field>
+        <field name="res_model">res.ward</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_vn_urban_admin" name="VN Urban Admin" parent="menu_vn_urban_admin_root" sequence="10" />
+    <menuitem id="menu_city" name="Cities" action="action_city" parent="menu_vn_urban_admin" sequence="20"/>
+    <menuitem id="menu_district" name="Districts" action="action_district" parent="menu_vn_urban_admin" sequence="30"/>
+    <menuitem id="menu_ward" name="Wards" action="action_ward" parent="menu_vn_urban_admin" sequence="40"/>
+
+</odoo>
