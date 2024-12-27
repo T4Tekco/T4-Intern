@@ -1,0 +1,74 @@
+<odoo>
+    <!-- Customer Management Menu -->
+    <menuitem id="menu_customer_root" name="Quản lý Khách hàng" sequence="10"/>
+
+    <!-- Action for Customers -->
+    <record id="action_customer" model="ir.actions.act_window">
+        <field name="name">Danh sách Khách hàng</field>
+        <field name="res_model">customer.odoo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action for Orders -->
+    <record id="action_order" model="ir.actions.act_window">
+        <field name="name">Danh sách Đơn hàng</field>
+        <field name="res_model">order.odoo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action for Products -->
+    <record id="action_product" model="ir.actions.act_window">
+        <field name="name">Danh sách Sản phẩm</field>
+        <field name="res_model">product.odoo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <!-- action_payment -->
+    <record id="action_payment" model="ir.actions.act_window">
+        <field name="name">Danh sách Thanh toán</field>
+        <field name="res_model">payment.odoo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action for Shipping -->
+    <record id="action_shipping" model="ir.actions.act_window">
+        <field name="name">Danh sách Vận chuyển</field>
+        <field name="res_model">shipping.odoo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Customer Menu linked to action_customer -->
+    <menuitem id="menu_customer_management" 
+              name="Khách hàng" 
+              parent="menu_customer_root" 
+              action="action_customer" 
+              sequence="1"/>
+
+    <!-- Order Menu linked to action_order -->
+    <menuitem id="menu_order_management" 
+              name="Đơn hàng" 
+              parent="menu_customer_root" 
+              action="action_order" 
+              sequence="2"/>
+     
+    <!-- payment -->
+    <menuitem id="menu_payment_management"
+              name="Thanh toán"
+              parent="menu_customer_root"
+              action="action_payment"
+              sequence="3"/>
+    
+    <!-- Shipping Menu linked to action_shipping -->
+    <menuitem id="menu_shipping_management" 
+              name="Vận chuyển" 
+              parent="menu_customer_root" 
+              action="action_shipping" 
+              sequence="4"/>
+    
+    <!-- Product Menu linked to action_product -->
+    <menuitem id="menu_product_management" 
+              name="Sản phẩm" 
+              parent="menu_customer_root" 
+              action="action_product" 
+              sequence="5"/>
+</odoo>

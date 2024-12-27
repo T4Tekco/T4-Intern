@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Menu cho Teacher -->
+        <!-- <menuitem id="menu_teacher_root" name="Giáo viên" sequence="3"/>
+         -->
+        <!-- Submenu cho Teacher -->
+        <!-- <menuitem id="menu_teacher" name="Quản lý giáo viên" parent="menu_teacher_root" action="action_teacher_item_form" sequence="0"/> -->
+
+        <!-- Action cho Teacher Model -->
+        <record id="action_teacher_item_form" model="ir.actions.act_window">
+            <field name="name">Giáo viên</field>
+            <field name="res_model">teacher.odoo</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Hãy thêm một giáo viên
+                </p>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="teacher_item_view_tree" model="ir.ui.view">
+            <field name="name">teacher.odoo.tree</field>
+            <field name="model">teacher.odoo</field>
+            <field name="arch" type="xml">
+                <tree string="Giáo viên">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="subject"/>
+                    <field name="is_active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="teacher_item_view_form" model="ir.ui.view">
+            <field name="name">teacher.odoo.form</field>
+            <field name="model">teacher.odoo</field>
+            <field name="arch" type="xml">
+                <form string="Giáo viên">
+                    <header>
+                        <button name="toggle_active" string="Kích hoạt" class="oe_highlight" type="object"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="subject"/>
+                            <field name="is_active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Kanban View -->
+        <record id="teacher_item_view_kanban" model="ir.ui.view">
+            <field name="name">teacher.odoo.kanban</field>
+            <field name="model">teacher.odoo</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="subject"/>
+                    <field name="is_active"/>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="teacher_item_view_search" model="ir.ui.view">
+            <field name="name">teacher.odoo.search.view</field>
+            <field name="model">teacher.odoo</field>
+            <field name="arch" type="xml">
+                <search string="Giáo viên">
+                    <field name="name"/>
+                    <field name="is_active"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>
